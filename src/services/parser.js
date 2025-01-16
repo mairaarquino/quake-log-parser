@@ -1,35 +1,31 @@
 const fs = require('fs')
 
 const parserFile = async () => {
-  console.log('Reading file...')
   try {
     const file = fs.readFileSync('./files/games.log', 'utf-8')
-    const games = file.split('InitGame')
+    const arrayGames = file.split('InitGame')
     
-    games.shift()
-    const gamesByLine = games.map(game => game.split('\n'))
-    const arrayKills = gamesByLine.map(line => line.filter(line => /Kill/i.test(line)))
+    arrayGames.shift()
+    const gamesByLine = arrayGames.map(game => game.split('\n'))
+    const filterKills = gamesByLine.map(line => line.filter(line => /Kill/i.test(line)))
 
-    return countKills(arrayKills)
+    return countKills(filterKills)
   } catch (err) {
     if(err && err.code === 'ENOENT') return { error: 'Arquivo não encontrado!'}
   }
 }
 
 const countKills = (arrayKills) => {
-  console.log('Counting kills...')
-  console.log('Reading players...')
+  let gameCounter = 0
 
-  let i = 0
-  const response = arrayKills.map(game => {
+  return arrayKills.map(game => {
     const players = []
     const kills = {}
 
     for (const line of game) {
-      const arraygame = line.split(':')
-      const killLine = arraygame[3]
-      const itens = killLine.split('by');
-      const playersEnvolved = itens[0].split('killed').map(item => item.trim())
+      const infoKill = line.split(':')?.[3]
+      const splitInfoKill = infoKill.split('by');
+      const playersEnvolved = splitInfoKill[0].split('killed').map(item => item.trim())
 
       if(playersEnvolved[0] === '<world>') kills[playersEnvolved[1]] = kills[playersEnvolved[1]] -1
       kills[playersEnvolved[0]] = kills[playersEnvolved[0]] + 1 || 1
@@ -41,17 +37,15 @@ const countKills = (arrayKills) => {
       .filter(item => item != '<world>')
 
     delete kills['<world>']
-    i++
+    gameCounter++
     return {
-      [`game_${i}`]: {
+      [`game_${gameCounter}`]: {
           total_kills: game.length,
           players: arrayPlayers,
           kills
         }
     }
   })
-  console.log('File processed!')
-  return response
 }
 module.exports = {
   parserFile
