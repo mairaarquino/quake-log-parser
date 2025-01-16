@@ -15,7 +15,7 @@ const parserFile = async () => {
   }
 }
 
-const countKills = (arrayKills) => {
+const countKills = (arrayKills) => {  
   let gameCounter = 0
 
   return arrayKills.map(game => {
@@ -27,8 +27,11 @@ const countKills = (arrayKills) => {
       const splitInfoKill = infoKill.split('by');
       const playersEnvolved = splitInfoKill[0].split('killed').map(item => item.trim())
 
-      if(playersEnvolved[0] === '<world>') kills[playersEnvolved[1]] = kills[playersEnvolved[1]] -1
-      kills[playersEnvolved[0]] = kills[playersEnvolved[0]] + 1 || 1
+      if(playersEnvolved[0] === '<world>') {
+        kills[playersEnvolved[1]] = (kills[playersEnvolved[1]] || 0) - 1;
+      } else {
+        kills[playersEnvolved[0]] = (kills[playersEnvolved[0]] || 0) + 1;
+      }
 
       players.push(...playersEnvolved)
     }
