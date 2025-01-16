@@ -1,8 +1,7 @@
-require('dotenv').config()
 const parseService = require('./services/parser')
 
 const express = require('express')
-
+const PORT = 3000
 const app = express()
 app.use(express.json())
 
@@ -11,4 +10,4 @@ app.get('/' , async (req , res)=> {
   res.send(response)
 })
 
-app.listen(3000, () => console.log('Server listening on port 3000'))
+app.listen(PORT, () => console.log(`[SERVER] http://localhost:${PORT}`))
