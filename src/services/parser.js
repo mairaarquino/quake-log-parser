@@ -11,7 +11,7 @@ const parserFile = async () => {
 
     return countKills(filterKills)
   } catch (err) {
-    if(err && err.code === 'ENOENT') return { error: 'Arquivo não encontrado!'}
+    if(err && err.code === 'ENOENT') {return { error: 'Arquivo não encontrado!'}}
   }
 }
 
@@ -37,16 +37,16 @@ const countKills = (arrayKills) => {
     }
     const arrayPlayers = players
       .reduce((acc, value) => acc.includes(value) ? acc : [...acc, value], [])
-      .filter(item => item != '<world>')
+      .filter(item => item !== '<world>')
 
     delete kills['<world>']
     gameCounter++
     return {
       [`game_${gameCounter}`]: {
-          total_kills: game.length,
-          players: arrayPlayers,
-          kills
-        }
+        total_kills: game.length,
+        players: arrayPlayers,
+        kills
+      }
     }
   })
 }

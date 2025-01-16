@@ -1,5 +1,4 @@
 const request = require('supertest')
-const express = require('express')
 
 const parseService = require('../src/services/parser')
 const app = require('../src/index')
@@ -7,23 +6,23 @@ const app = require('../src/index')
 jest.mock('../src/services/parser', () => ({
   parserFile: jest.fn(() => Promise.resolve([
     {
-        "game_1": {
-            "total_kills": 0,
-            "players": [],
-            "kills": {}
-        }
+      "game_1": {
+        "total_kills": 0,
+        "players": [],
+        "kills": {}
+      }
     },
     {
-        "game_2": {
-            "total_kills": 11,
-            "players": [
-                "Isgalamido",
-                "Mocinha"
-            ],
-            "kills": {
-                "Isgalamido": -5
-            }
+      "game_2": {
+        "total_kills": 11,
+        "players": [
+          "Isgalamido",
+          "Mocinha"
+        ],
+        "kills": {
+          "Isgalamido": -5
         }
+      }
     }])),
 }));
 
@@ -37,23 +36,23 @@ describe('[GET] /', () => {
     expect(response.status).toBe(200);
     expect(JSON.parse(response.text)).toEqual([
       {
-          "game_1": {
-              "total_kills": 0,
-              "players": [],
-              "kills": {}
-          }
+        "game_1": {
+          "total_kills": 0,
+          "players": [],
+          "kills": {}
+        }
       },
       {
-          "game_2": {
-              "total_kills": 11,
-              "players": [
-                  "Isgalamido",
-                  "Mocinha"
-              ],
-              "kills": {
-                  "Isgalamido": -5
-              }
+        "game_2": {
+          "total_kills": 11,
+          "players": [
+            "Isgalamido",
+            "Mocinha"
+          ],
+          "kills": {
+            "Isgalamido": -5
           }
+        }
       }]);
     expect(parseService.parserFile).toHaveBeenCalledTimes(1);
   }, 10000)
