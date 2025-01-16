@@ -1,6 +1,9 @@
 # Quake log parser
 ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)\
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![ESLint](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=Jest&logoColor=white)\
+\
 O projeto tem como objetivo a leitura de um arquivo de log do jogo quake e seu processamento,
 tornando mais legível as principais informações como jogadores, total de kills e kills por jogadores.\
 Para o desenvolvimento foram utilizados apenas Node.js e Express.js para criação do servidor.

@@ -27,7 +27,6 @@ describe('parserFile', () => {
     fs.readFileSync.mockReturnValue(mockFileContent)
 
     const result = await parserFile()
-
     expect(result).toEqual([
       {
         game_1: {
@@ -65,14 +64,12 @@ describe('parserFile', () => {
     })
 
     const result = await parserFile()
-
     expect(result).toEqual({ error: 'Arquivo não encontrado!' })
   })
 
   it('deve tratar arquivo vazio', async () => {
     fs.readFileSync.mockReturnValue('')
     const result = await parserFile()
-
     expect(result).toEqual([])
   })
 })
